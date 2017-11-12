@@ -23,6 +23,25 @@
          margin-top: 20%;
      }
  }
+.item-list {
+
+  .item-icon {
+    font-size: 32;
+    margin: 8;
+  }
+
+  .item-title {
+    margin-top: 8;
+    color: $primary;
+    font-weight: bold;
+    font-size: 16;
+  }
+
+  .item-info {
+    color: $secondary;
+  }
+
+}
  //Action bar
  ActionBar .action-bar-title {
      horizontal-align: center;

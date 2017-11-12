@@ -32,13 +32,6 @@ function MyDrawerViewModel(selectedPage) {
                 isSelected: selectedPage === "Search"
             },
             {
-                title: "Featured",
-                name: "featured",
-                route: "featured/featured-page",
-                icon: "\uf005",
-                isSelected: selectedPage === "Featured"
-            },
-            {
                 title: "Settings",
                 name: "settings",
                 route: "settings/settings-page",
