@@ -1,0 +1,6 @@
+# Geany project files
+*.geany
+
+# NativeScript stuff
+node_modules
+platforms
