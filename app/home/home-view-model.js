@@ -1,5 +1,6 @@
 const observableModule = require("data/observable");
 const observableArrayModule = require("data/observable-array");
+const couchbaseService = require("../shared/db/database.js");
 
 function HomeViewModel() {
     const emptyBook = observableModule.fromObject({
@@ -11,10 +12,7 @@ function HomeViewModel() {
         authors: ["Tim Burr"],
     });
 
-    const bookList = new observableArrayModule.ObservableArray(
-        emptyBook,
-        fullBook
-    );
+    const bookList = new observableArrayModule.ObservableArray(couchbaseService.getBookList());
     
     const viewModel = observableModule.fromObject({
         bookList: bookList

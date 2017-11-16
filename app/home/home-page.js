@@ -27,7 +27,22 @@ function onNavigatingTo(args) {
 function onDrawerButtonTap(args) {
     const sideDrawer = frameModule.topmost().getViewById("sideDrawer");
     sideDrawer.showDrawer();
-}
+};
+
+function onItemTap(args) {
+    const page = args.object;
+    document = page.bindingContext.bookList.getItem(args.index);
+
+    frameModule.topmost().navigate({
+        moduleName: 'detail/book-detail-page',
+        context: {
+            document: document,
+            model: 'Books'
+            }
+    });
+};
+
 
 exports.onNavigatingTo = onNavigatingTo;
 exports.onDrawerButtonTap = onDrawerButtonTap;
+exports.onItemTap = onItemTap;

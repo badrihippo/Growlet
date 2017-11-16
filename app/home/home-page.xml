@@ -58,7 +58,7 @@
         -->
         <nsDrawer:RadSideDrawer.mainContent>
             <StackLayout class="page-content">
-                <ListView items="{{ bookList }}" class="item-list">
+                <ListView items="{{ bookList }}" class="item-list" itemTap="onItemTap">
                     <ListView.itemTemplate>
                         <StackLayout orientation="horizontal">
                             <Label class="item-icon fa" text="&#xf02e;" />
