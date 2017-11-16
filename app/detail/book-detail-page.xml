@@ -1,0 +1,28 @@
+<Page
+  class="page"
+  navigatingTo="onNavigatingTo"
+  xmlns="http://www.nativescript.org/tns.xsd">
+
+  <Page.ActionBar>
+    <ActionBar title="Details" class="action-bar">
+      <NavigationButton android.systemIcon="ic_ab_back_holo_dark" tap="onBackButtonTap"/>
+    </ActionBar>
+  </Page.ActionBar>
+
+  <StackLayout>
+  <Label text="{{ title }}" class="h1"/>
+  <Label text="Authors" class="bold"/>
+  <Label text="{{ authors }}"/>
+  <Label text="Genre" />
+  <Label text="{{ genre }}" />
+  <Label text="Publisher" />
+  <Label text="{{ publisher }}"/>
+  <Label text="Binding" />
+  <Label text="{{ binding_type }}" />
+  <Label text="Price" />
+  <Label text="{{ price }}"/>
+  <Label text="Added on" />
+  <Label text="{{ date_added }}" />
+
+  </StackLayout>
+</Page>
