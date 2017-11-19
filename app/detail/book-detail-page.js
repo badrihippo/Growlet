@@ -16,7 +16,7 @@ function onNavigatingTo(args) {
     }
 
     const page = args.object;
-    page.bindingContext = new BookViewModel(page.navigationContext.document);
+    page.bindingContext = new BookViewModel(page.navigationContext.documentId);
 }
 
 function onBackButtonTap(args) {

@@ -32,12 +32,13 @@ function onDrawerButtonTap(args) {
 function onItemTap(args) {
     const page = args.object;
     document = page.bindingContext.bookList.getItem(args.index);
+    documentId = document._id
 
     frameModule.topmost().navigate({
         moduleName: 'detail/book-detail-page',
         context: {
             document: document,
-            model: 'Books'
+            documentId: documentId,
             }
     });
 };
