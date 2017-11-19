@@ -21,7 +21,7 @@ couchbaseService.prototype.saveBook = function(bookRecord) {
       date_added: bookRecord.date_added,
     });
   } else {
-    var document = db.createDocument({
+    var document = this.db.createDocument({
       title: bookRecord.title,
       authors: bookRecord.authors,
       genre: bookRecord.genre,
