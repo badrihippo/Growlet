@@ -49,4 +49,9 @@ couchbaseService.prototype.getBookDetail = function(documentId) {
   return document;
 }
 
+couchbaseService.prototype.deleteBook = function(documentId) {
+  var isDeleted = this.db.deleteDocument(documentId);
+  return isDeleted;
+}
+
 module.exports = new couchbaseService();
