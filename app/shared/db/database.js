@@ -8,8 +8,8 @@ var couchbaseService = function() {
 }
 
 couchbaseService.prototype.saveBook = function(bookRecord) {
-  if (bookRecord.id) {
-    var documentId = db.updateDocument(bookRecord.id, {
+  if (bookRecord._id) {
+    var documentId = this.db.updateDocument(bookRecord._id, {
       title: bookRecord.title,
       authors: bookRecord.authors,
       genre: bookRecord.genre,
