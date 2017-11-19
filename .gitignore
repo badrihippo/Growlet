@@ -4,3 +4,7 @@
 # NativeScript stuff
 node_modules
 platforms
+
+# CSS files auto-updated from SCSS
+app.android.css
+app.ios.css
