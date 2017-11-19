@@ -1,5 +1,7 @@
 const frameModule = require("ui/frame");
+const dialogModule = require("ui/dialogs");
 
+const couchbaseService = require("../shared/db/database.js");
 const BookViewModel = require("./book-view-model");
 
 /* ***********************************************************
@@ -16,25 +18,42 @@ function onNavigatingTo(args) {
     }
 
     const page = args.object;
+  
     page.bindingContext = new BookViewModel(page.navigationContext.documentId);
 }
 
-function onBackButtonTap(args) {
-  console.log("Going back...");
+function onCancelTap(args) {
   frameModule.topmost().goBack();
 }
 
-function onEditTap(args) {
-  const page = args.object;
-  const documentId = page.bindingContext._id;
+function onSaveTap(args) {
+  console.log('Saving book record...');
+  var page = args.object;
+  couchbaseService.saveBook(page.bindingContext);
   frameModule.topmost().navigate({
-        moduleName: 'detail/book-edit-page',
-        context: {
-            documentId: documentId,
-            }
-    });
+    moduleName: 'home/home-page'  
+  });
 }
 
+function onDeleteTap(args) {
+  var page = args.object;
+  var book = args.object.bindingContext;
+  dialogModule.confirm({
+    title: "Delete book",
+    message: 'Are you sure you want to delete "' + book.title + '"?',
+    okButtonText: "Delete",
+    cancelButtonText: "Cancel"
+  }).then(function (result) {
+    if (result == 1) {
+      var isDeleted = couchbaseService.deleteBook(book._id);
+      frameModule.topmost().navigate({
+        moduleName: 'home/home-page'
+      });
+    }
+  });
+};
+
 exports.onNavigatingTo = onNavigatingTo;
-exports.onBackButtonTap = onBackButtonTap;
-exports.onEditTap = onEditTap;
+exports.onCancelTap = onCancelTap;
+exports.onSaveTap = onSaveTap;
+exports.onDeleteTap = onDeleteTap;

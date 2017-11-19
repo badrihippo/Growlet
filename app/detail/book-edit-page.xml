@@ -1,0 +1,54 @@
+<Page
+  class="page"
+  navigatingTo="onNavigatingTo"
+  xmlns="http://www.nativescript.org/tns.xsd">
+
+  <Page.ActionBar>
+    <ActionBar title="Edit" class="action-bar">
+      <NavigationButton android.systemIcon="ic_ab_back_holo_dark" tap="onCancelTap"/>
+      <ActionItem text="Save" tap="onSaveTap"/>
+    </ActionBar>
+  </Page.ActionBar>
+
+  <ScrollView>
+    <StackLayout>
+      <StackLayout class="form">
+        <StackLayout class="input-field">
+          <Label text="Title" class="label"/>
+          <TextField text="{{ title }}" class="h1" hint="Book title..."/>
+        </StackLayout>
+        <StackLayout class="input-field">
+          <Label text="ISBN" class="label"/>
+          <TextField text="{{ isbn }}"/>
+        </StackLayout>
+        <StackLayout class="input-field">
+          <Label text="Authors" class="label"/>
+          <Label text="{{ authors }}"/>
+        </StackLayout>
+        <StackLayout class="input-field">
+          <Label text="Genre" class="label"/>
+          <TextField text="{{ genre }}" />
+        </StackLayout>
+        <StackLayout class="input-field">
+          <Label text="Description" class="label"/>
+          <TextField text="{{ description }}" />
+        </StackLayout>
+        <StackLayout class="input-field">
+          <Label text="Publisher" class="label"/>
+          <TextField text="{{ publisher }}"/>
+        </StackLayout>
+        <StackLayout class="input-field">
+          <Label text="Binding" class="label"/>
+          <!--TODO: Replace with ListPicker-->
+          <TextField text="{{ binding_type }}"/>
+        </StackLayout>
+        <StackLayout class="input-field">
+          <Label text="Price" class="label"/>
+          <TextField text="{{ price }}"/>
+        </StackLayout>
+      </StackLayout>
+      <Button text="Save changes" tap="onSaveTap" class="btn btn-primary" />
+      <Button text="Delete book" tap="onDeleteTap" class="btn btn-outline" />
+    </StackLayout>
+  </ScrollView>
+</Page>

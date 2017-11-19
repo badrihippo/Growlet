@@ -6,6 +6,7 @@
   <Page.ActionBar>
     <ActionBar title="Details" class="action-bar">
       <NavigationButton android.systemIcon="ic_ab_back_holo_dark" tap="onBackButtonTap"/>
+      <ActionItem icon="res://ic_mode_edit_white" tap="onEditTap"/>
     </ActionBar>
   </Page.ActionBar>
 
