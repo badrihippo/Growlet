@@ -58,7 +58,7 @@
         <nsDrawer:RadSideDrawer.mainContent>
             <GridLayout class="page-content">
                 <Label class="page-icon fa" text="&#xf013;"></Label>
-                <Label class="page-placeholder" text="<!-- Page content goes here -->"></Label>
+                <Button text="Add default book record" tap="onAddBookRecordTap" />
             </GridLayout>
         </nsDrawer:RadSideDrawer.mainContent>
     </nsDrawer:RadSideDrawer>

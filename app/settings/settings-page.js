@@ -1,4 +1,5 @@
 const frameModule = require("ui/frame");
+const couchbaseService = require("../shared/db/database.js");
 
 const SettingsViewModel = require("./settings-view-model");
 
@@ -29,5 +30,18 @@ function onDrawerButtonTap(args) {
     sideDrawer.showDrawer();
 }
 
+function onAddBookRecordTap(args) {
+    const book = {
+        title: 'Tree Felling',
+        authors: ['Tim Burr', 'Wood Cutter'],
+        genre: 'Agriculture',
+        publisher: 'NoPress',
+        binding_type: 'paperback',
+        price: 0,
+    };
+    couchbaseService.saveBook(book);
+}
+
 exports.onNavigatingTo = onNavigatingTo;
 exports.onDrawerButtonTap = onDrawerButtonTap;
+exports.onAddBookRecordTap = onAddBookRecordTap;
