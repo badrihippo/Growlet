@@ -8,3 +8,6 @@ platforms
 # CSS files auto-updated from SCSS
 app.android.css
 app.ios.css
+
+MyDrawer.android.css
+MyDrawer.ios.css
