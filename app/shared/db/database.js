@@ -7,32 +7,31 @@ var couchbaseService = function() {
   });
 }
 
+couchbaseService.prototype.newBook = function(data) {
+  var book = {
+    _id: data._id ? data._id : null,
+    title: data.title ? data.title : '',
+    authors: data.authors ? data.authors : [],
+    genre: data.genre ? data.genre : '',
+    description: data.description ? data.description : '',
+    publisher: data.publisher ? data.publisher : '',
+    isbn: data.isbn ? data.isbn : '',
+    binding_type: data.binding_type ? data.binding_type : '',
+    price: data.price ? data.price : 0,
+    date_added: data.date_added,
+  };
+  return book;
+};
+
 couchbaseService.prototype.saveBook = function(bookRecord) {
+  document = this.newBook(bookRecord);
   if (bookRecord._id) {
-    var documentId = this.db.updateDocument(bookRecord._id, {
-      title: bookRecord.title,
-      authors: bookRecord.authors,
-      genre: bookRecord.genre,
-      description: bookRecord.description,
-      publisher: bookRecord.publisher,
-      isbn: bookRecord.isbn,
-      binding_type: bookRecord.binding_type,
-      price: bookRecord.price,
-      date_added: bookRecord.date_added,
-    });
+    this.db.updateDocument(bookRecord._id, document);
+    var documentId = bookRecord._id;
   } else {
-    var document = this.db.createDocument({
-      title: bookRecord.title,
-      authors: bookRecord.authors,
-      genre: bookRecord.genre,
-      description: bookRecord.description,
-      publisher: bookRecord.publisher,
-      isbn: bookRecord.isbn,
-      binding_type: bookRecord.binding_type,
-      price: bookRecord.price,
-      date_added: bookRecord.date_added,
-    });
+    var documentId = this.db.createDocument(document);
   }
+  return documentId;
 };
 
 couchbaseService.prototype.getBookList = function() {
