@@ -1,5 +1,7 @@
 const frameModule = require("ui/frame");
+const observableModule = require("data/observable");
 
+const couchbaseService = require("../shared/db/database.js");
 const HomeViewModel = require("./home-view-model");
 
 /* ***********************************************************
@@ -43,7 +45,18 @@ function onItemTap(args) {
     });
 };
 
+function onAddTap(args) {
+    const page = args.object;
+    frameModule.topmost().navigate({
+        moduleName: 'detail/book-edit-page',
+        context: {
+            documentId: null,
+            newBook: true,
+        }
+    });
+}
 
 exports.onNavigatingTo = onNavigatingTo;
 exports.onDrawerButtonTap = onDrawerButtonTap;
 exports.onItemTap = onItemTap;
+exports.onAddTap = onAddTap;

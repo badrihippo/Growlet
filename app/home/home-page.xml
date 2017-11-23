@@ -19,6 +19,7 @@
             ios.position="left">
         </ActionItem>
         <Label class="action-bar-title" text="Home"></Label>
+        <ActionItem tap="onAddTap" icon="res://ic_add_white_24dp"/>
     </ActionBar>
 
     <!--
