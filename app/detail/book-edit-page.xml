@@ -5,8 +5,8 @@
 
   <Page.ActionBar>
     <ActionBar title="Edit" class="action-bar">
-      <NavigationButton android.systemIcon="ic_ab_back_holo_dark" tap="onCancelTap"/>
-      <ActionItem text="Save" tap="onSaveTap"/>
+      <NavigationButton icon="res://ic_close_white_24dp" tap="onCancelTap"/>
+      <ActionItem icon="res://ic_done_white_24dp" tap="onSaveTap"/>
     </ActionBar>
   </Page.ActionBar>
 
