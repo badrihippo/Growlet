@@ -11,7 +11,7 @@ $sidedrawer-list-icon-size: 20;
 .sidedrawer {
     &.sidedrawer-left {
         .sidedrawer-header-image {
-            color: $background-dark;
+            color: $background;
             height: $sidedrawer-header-image-size;
             width: $sidedrawer-header-image-size;
             font-size: $sidedrawer-header-image-size;
@@ -47,7 +47,7 @@ $sidedrawer-list-icon-size: 20;
 
         Label {
             vertical-align: center;
-            color: $blue-dark;
+            color: $primary;
         }
 
         .fa {
@@ -65,7 +65,7 @@ $sidedrawer-list-icon-size: 20;
 
         &.sidedrawer-list-item-settings {
             border-top-width: 1px;
-            border-top-color: $blue-50;
+            border-top-color: $background;
         }
     }
 }
