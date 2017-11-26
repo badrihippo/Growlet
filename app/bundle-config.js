@@ -6,6 +6,9 @@ if (global.TNS_WEBPACK) {
     global.registerModule("nativescript-pro-ui/sidedrawer",
         () => require("../node_modules/nativescript-pro-ui/sidedrawer"));
 
+    global.registerModule("nativescript-floatingactionbutton",
+        () => require("../node_modules/nativescript-floatingactionbutton"));
+
     global.registerModule("shared/my-drawer/MyDrawer", () => require("./shared/my-drawer/MyDrawer"));
     global.registerModule("home/home-page", () => require("./home/home-page"));
     global.registerModule("browse/browse-page", () => require("./browse/browse-page"));
