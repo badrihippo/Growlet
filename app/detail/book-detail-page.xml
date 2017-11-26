@@ -10,20 +10,35 @@
     </ActionBar>
   </Page.ActionBar>
 
-  <StackLayout>
-  <Label text="{{ title }}" class="h1"/>
-  <Label text="Authors" class="bold"/>
-  <Label text="{{ authors }}"/>
-  <Label text="Genre" />
-  <Label text="{{ genre }}" />
-  <Label text="Publisher" />
-  <Label text="{{ publisher }}"/>
-  <Label text="Binding" />
-  <Label text="{{ binding_type }}" />
-  <Label text="Price" />
-  <Label text="{{ price }}"/>
-  <Label text="Added on" />
-  <Label text="{{ date_added }}" />
+  <StackLayout class="m-10">
+    <StackLayout>
+      <Label text="{{ title }}" class="h1"/>
+    </StackLayout>
+    <StackLayout visibility="{{ authors.length > 0 ? 'visible' : 'collapse' }}">
+      <Label text="Authors" class="text-muted"/>
+      <Label text="{{ authors }}" class="text-primary"/>
+    </StackLayout>
+    <StackLayout visibility="{{ genre ? 'visible' : 'collapse' }}">
+      <Label text="Genre" class="text-muted"/>
+      <Label text="{{ genre }}"  class="text-primary"/>
+    </StackLayout>
+    <StackLayout class="hr-light m-y-10"></StackLayout>
+    <StackLayout visibility="{{ publisher ? 'visible' : 'collapse' }}">
+      <Label text="Publisher"/>
+      <Label text="{{ publisher }}" class="text-primary"/>
+    </StackLayout>
+    <StackLayout visibility="{{ binding ? 'visible' : 'collapse' }}">
+      <Label text="Binding"/>
+      <Label text="{{ binding_type }}" class="text-primary"/>
+    </StackLayout>
+    <StackLayout  visibility="{{ price != 0 ? 'visible' : 'collapse' }}">
+      <Label text="Price"/>
+      <Label text="{{ price }}" class="text-primary"/>
+    </StackLayout>
+    <StackLayout>
+      <Label text="Added on" />
+      <Label text="{{ date_added }}" class="text-primary"/>
+    </StackLayout>
 
   </StackLayout>
 </Page>
