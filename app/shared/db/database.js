@@ -11,7 +11,6 @@ couchbaseService.prototype.newBook = function(data) {
   var book = {
     _id: data._id ? data._id : null,
     title: data.title ? data.title : '',
-    authors: data.authors ? data.authors : [],
     genre: data.genre ? data.genre : '',
     description: data.description ? data.description : '',
     publisher: data.publisher ? data.publisher : '',
@@ -19,6 +18,17 @@ couchbaseService.prototype.newBook = function(data) {
     binding_type: data.binding_type ? data.binding_type : '',
     price: data.price ? data.price : 0,
     date_added: data.date_added,
+  };
+  // set book.authors
+  book.authors = []
+  if (data.authors) {
+    data.authors.forEach(function(a) {
+      if (a.name && a.name != '') {
+        book.authors.push({
+          name: a.name,
+        });
+      };
+    });
   };
   return book;
 };

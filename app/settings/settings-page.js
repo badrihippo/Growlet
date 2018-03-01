@@ -33,7 +33,10 @@ function onDrawerButtonTap(args) {
 function onAddBookRecordTap(args) {
     const book = {
         title: 'Tree Felling',
-        authors: ['Tim Burr', 'Wood Cutter'],
+        authors: [
+          { name: 'Tim Burr' },
+          { name: 'Wood Cutter' }
+        ],
         genre: 'Agriculture',
         publisher: 'NoPress',
         binding_type: 'paperback',

@@ -1,3 +1,6 @@
+const observableModule = require("data/observable");
+const observableArrayModule = require("data/observable-array");
+
 const frameModule = require("ui/frame");
 const dialogModule = require("ui/dialogs");
 
@@ -20,6 +23,14 @@ function onNavigatingTo(args) {
     const page = args.object;
   
     page.bindingContext = new BookViewModel(page.navigationContext.documentId);
+    if (page.bindingContext.authors.length == 0) {
+      // Add default author field
+      console.log('Adding default author');
+      page.bindingContext.authors.push(new observableModule.fromObject({ name: '' }));
+    };
+
+    // TODO: Find better way to watch author list for changes
+    // Right now, only uses 'tap' event in book-edit-page.xml
 }
 
 function onCancelTap(args) {
@@ -53,7 +64,24 @@ function onDeleteTap(args) {
   });
 };
 
+function onAuthorChange(args) {
+  console.log('Checking author list...');
+  var page = args.object;
+  var author = page.bindingContext;
+  var book = page.parent.parent.bindingContext;
+
+  console.log('Height: ' + page.parents);
+
+  var lastAuthor = book.authors.getItem(book.authors.length-1);
+  if (lastAuthor.name != '') {
+    // Add empty author field
+    console.log('Adding new author field');
+    book.authors.push({ name: ''});
+  };
+}
+
 exports.onNavigatingTo = onNavigatingTo;
 exports.onCancelTap = onCancelTap;
 exports.onSaveTap = onSaveTap;
 exports.onDeleteTap = onDeleteTap;
+exports.onAuthorChange = onAuthorChange;

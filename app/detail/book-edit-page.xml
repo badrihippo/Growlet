@@ -23,7 +23,18 @@
         </StackLayout>
         <StackLayout class="input-field">
           <Label text="Authors" class="label"/>
-          <Label text="{{ authors }}"/>
+          <ScrollView>
+          <Repeater items="{{ authors }}" height="auto" id="authorList">
+            <Repeater.itemsLayout>
+              <StackLayout />
+            </Repeater.itemsLayout>
+            <Repeater.itemTemplate>
+              <StackLayout orientation="horizontal">
+                <TextField text="{{ name }}" hint="Author Name" tap="onAuthorChange"/>
+              </StackLayout>
+            </Repeater.itemTemplate>
+          </Repeater>
+          </ScrollView>
         </StackLayout>
         <StackLayout class="input-field">
           <Label text="Genre" class="label"/>
