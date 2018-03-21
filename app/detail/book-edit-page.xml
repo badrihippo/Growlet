@@ -20,6 +20,10 @@
         <StackLayout class="input-field">
           <Label text="ISBN" class="label"/>
           <TextField text="{{ isbn }}"/>
+          <StackLayout orientation="horizontal">
+            <Button text="Scan barcode" tap="scanBarcode"/>
+            <Button text="Download metadata" tap="downloadMetadata"/>
+          </StackLayout>
         </StackLayout>
         <StackLayout class="input-field">
           <Label text="Authors" class="label"/>

@@ -7,6 +7,9 @@ const dialogModule = require("ui/dialogs");
 const couchbaseService = require("../shared/db/database.js");
 const BookViewModel = require("./book-view-model");
 
+const barcodeScannerModule = require("nativescript-barcodescanner");
+const BarcodeScanner = new barcodeScannerModule.BarcodeScanner();
+
 /* ***********************************************************
 * Use the "onNavigatingTo" handler to initialize the page binding context.
 *************************************************************/
@@ -80,8 +83,41 @@ function onAuthorChange(args) {
   };
 }
 
+function scanBarcode(args) {
+  console.log('Scanning barcode...');
+  var page = args.object;
+  var book = page.bindingContext;
+  BarcodeScanner.scan({
+    formats: "EAN_8, EAN_13",
+    showTorchButton: true,
+    beepOnScan: true,
+  }).then(
+    function(result) {
+      console.log("We got a " + result.format + ": " + result.text);
+      book.isbn = result.text;
+      downloadMetadata(args);
+    },
+    function(error) {
+      console.log("Scan failed: " + error);
+    }
+  );
+}
+
+function downloadMetadata(args) {
+  const api_url_prefix = "http://openlibrary.org/api/books?jscmd=data&format=json&bibkeys=ISBN:";
+  console.log("Downloading metadata...");
+
+  dialogModule.alert({
+      title: "Not supported",
+      message: "Sorry, metadata download is not supported yet. We're working on it!",
+      okButtonText: "OK",
+    });
+}
+
 exports.onNavigatingTo = onNavigatingTo;
 exports.onCancelTap = onCancelTap;
 exports.onSaveTap = onSaveTap;
 exports.onDeleteTap = onDeleteTap;
 exports.onAuthorChange = onAuthorChange;
+exports.scanBarcode = scanBarcode;
+exports.downloadMetadata = downloadMetadata;
