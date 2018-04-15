@@ -23,6 +23,7 @@
           <StackLayout orientation="horizontal">
             <Button text="Scan barcode" tap="scanBarcode"/>
             <Button text="Download metadata" tap="downloadMetadata"/>
+            <ActivityIndicator busy="{{ isLoading }}"/>
           </StackLayout>
         </StackLayout>
         <StackLayout class="input-field">
