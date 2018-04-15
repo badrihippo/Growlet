@@ -41,7 +41,12 @@ function onItemTap(args) {
         context: {
             document: document,
             documentId: documentId,
-            }
+            },
+        animated: true,
+        transition: {
+            name: "slideLeft",
+            curve: "easeIn",
+        },
     });
 };
 
@@ -52,7 +57,12 @@ function onAddTap(args) {
         context: {
             documentId: null,
             newBook: true,
-        }
+        },
+        animated: true,
+        transition: {
+            name: "slideTop",
+            curve: "easeIn",
+        },
     });
 }
 

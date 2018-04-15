@@ -60,13 +60,19 @@
         -->
         <nsDrawer:RadSideDrawer.mainContent>
             <GridLayout class="page-content" rows="auto, *">
-                <ListView row="1" items="{{ bookList }}" class="item-list" itemTap="onItemTap">
+                <StackLayout class="m-10" visibility="{{ bookList.length == 0 ? 'visible' : 'collapse' }}">
+                    <Label class="page-icon fa" text="&#xf1ea;"></Label>
+                    <Label class="page-placeholder text-center" text="No books yet!" textWrap="true"></Label>
+                    <Label class="page-placeholder text-center"  text="Tap the '+' icon to add one." textWrap="true"></Label>
+                </StackLayout>
+                <ListView row="1" items="{{ bookList }}" class="item-list" itemTap="onItemTap" visibility="{{ bookList.length != 0 ? 'visible' : 'collapse' }}">
                     <ListView.itemTemplate>
                         <StackLayout orientation="horizontal">
                             <Label class="item-icon fa" text="&#xf02e;" />
                             <StackLayout>
                                 <Label text="{{ title }}" class="item-title" />
-                                <Label text="more info soon" />
+                                <!--TODO: Show authors in a better way -->
+                                <Label text="{{ authors, 'by ' + authors[0].name + (authors.length >1 ? ' +' + (authors.length-1) : '') }}" />
                             </StackLayout>
                         </StackLayout>
                     </ListView.itemTemplate>

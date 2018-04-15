@@ -4,9 +4,10 @@ Feel free to customize layouts and components to change how your app drawer look
 -->
 <StackLayout class="sidedrawer sidedrawer-left" loaded="onLoaded">
     <StackLayout class="sidedrawer-header">
-        <Label class="sidedrawer-header-image fa" text="&#xf2bd;"></Label>
-        <Label class="sidedrawer-header-brand" text="User Name"></Label>
-        <Label class="footnote" text="username@mail.com"></Label>
+        <Image src="res://icon" class="sidedrawer-header-image" />
+        <!--Label class="sidedrawer-header-image fa" text="&#xf2bd;"></Label-->
+        <Label class="sidedrawer-header-brand" text="Growlet"></Label>
+        <Label class="footnote" text="the librarian in your pocket"></Label>
     </StackLayout>
 
     <StackLayout class="sidedrawer-content">

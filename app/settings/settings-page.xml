@@ -56,10 +56,10 @@
         Always wrap content in a layout component.
         -->
         <nsDrawer:RadSideDrawer.mainContent>
-            <GridLayout class="page-content">
+            <StackLayout class="page-content">
                 <Label class="page-icon fa" text="&#xf013;"></Label>
                 <Button text="Add default book record" tap="onAddBookRecordTap" />
-            </GridLayout>
+            </StackLayout>
         </nsDrawer:RadSideDrawer.mainContent>
     </nsDrawer:RadSideDrawer>
 </Page>

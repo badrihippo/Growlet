@@ -1,14 +1,24 @@
 // Import the theme’s variables. If you’re using a color scheme
 // other than “light”, switch the path to the alternative scheme,
 // for example '~nativescript-theme-core/scss/dark'.
-@import '~nativescript-theme-core/scss/orange';
+@import '~nativescript-theme-core/scss/light';
 
 // Custom colors
+$teal-500: #009688;
+$teal-50: #E0F2F1;
+
 $page-icon-color: #D7D7D7 !default;
+
+$side-drawer-header-background: $teal-500;
+$side-drawer-header-brand: $teal-50;
+$side-drawer-background: $white;
+$item-active-color: $primary;
+$item-active-background: #E5E5E5;
+
+$secondary: #ff0000;
+
+$ab-color: $teal-50;
+$ab-background: $teal-500;
 
 // Sizes
 $page-content-placeholder-font-size: 20;
-
-$side-drawer-header-background: #fafafa;
-$side-drawer-header-brand: #737373;
-$side-drawer-background: #FFFFFF;

@@ -12,32 +12,39 @@
 
   <StackLayout class="m-10">
     <StackLayout>
-      <Label text="{{ title }}" class="h1"/>
+      <Label text="{{ title }}" class="h1" textWrap="true"/>
     </StackLayout>
     <StackLayout visibility="{{ authors.length > 0 ? 'visible' : 'collapse' }}">
-      <Label text="Authors" class="text-muted"/>
-      <Label text="{{ authors }}" class="text-primary"/>
+      <!--ListView items="{{ authors }}">
+        <ListView.itemTemplate>
+          <Label text="{{ name }}" class="text-primary" style="font-weight: bold"/>
+        </ListView.itemTemplate>
+      </ListView-->
+      <Label text="{{ authors, 'by ' + authorListConverter(authors) }}" />
     </StackLayout>
-    <StackLayout visibility="{{ genre ? 'visible' : 'collapse' }}">
-      <Label text="Genre" class="text-muted"/>
-      <Label text="{{ genre }}"  class="text-primary"/>
+    <StackLayout class="m-y-20" visibility="{{ description ? 'visible' : 'collapse' }}">
+      <Label text="{{ description }}"/>
     </StackLayout>
     <StackLayout class="hr-light m-y-10"></StackLayout>
-    <StackLayout visibility="{{ publisher ? 'visible' : 'collapse' }}">
-      <Label text="Publisher"/>
-      <Label text="{{ publisher }}" class="text-primary"/>
+    <StackLayout visibility="{{ genre ? 'visible' : 'collapse' }}" orientation="horizontal">
+      <Label text="Genre" class="font-weight-bold m-r-10"/>
+      <Label text="{{ genre }}"/>
     </StackLayout>
-    <StackLayout visibility="{{ binding ? 'visible' : 'collapse' }}">
-      <Label text="Binding"/>
-      <Label text="{{ binding_type }}" class="text-primary"/>
+    <StackLayout visibility="{{ publisher ? 'visible' : 'collapse' }}" orientation="horizontal">
+      <Label text="Publisher" class="font-weight-bold m-r-10"/>
+      <Label text="{{ publisher }}"/>
     </StackLayout>
-    <StackLayout  visibility="{{ price != 0 ? 'visible' : 'collapse' }}">
-      <Label text="Price"/>
-      <Label text="{{ price }}" class="text-primary"/>
+    <StackLayout visibility="{{ binding ? 'visible' : 'collapse' }}" orientation="horizontal">
+      <Label text="Binding" class="font-weight-bold m-r-10"/>
+      <Label text="{{ binding_type }}"/>
     </StackLayout>
-    <StackLayout>
-      <Label text="Added on" />
-      <Label text="{{ date_added }}" class="text-primary"/>
+    <StackLayout  visibility="{{ price != 0 ? 'visible' : 'collapse' }}" orientation="horizontal">
+      <Label text="Price" class="font-weight-bold m-r-10"/>
+      <Label text="{{ price }}"/>
+    </StackLayout>
+    <StackLayout orientation="horizontal">
+      <Label text="Added on" class="font-weight-bold m-r-10"/>
+      <Label text="{{ date_added }}"/>
     </StackLayout>
 
   </StackLayout>
