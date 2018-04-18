@@ -4,7 +4,7 @@ the librarian in your pocket [WORK IN PROGRESS]
 
 ## Installing
 
-**WARNING: ** This app is still work-in-progress, and the database is
+**WARNING:** This app is still work-in-progress, and the database is
 subject to change. Feel free to test it out, but be aware that the app
 data may suddenly get reset or cleared upon update.
 
