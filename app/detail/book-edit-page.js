@@ -5,6 +5,7 @@ const frameModule = require("ui/frame");
 const dialogModule = require("ui/dialogs");
 
 const httpModule = require("http");
+const metadataDownloadModal = 'detail/metadata-download-modal';
 
 const couchbaseService = require("../shared/db/database.js");
 const BookViewModel = require("./book-view-model");
@@ -108,43 +109,31 @@ function scanBarcode(args) {
 }
 
 function downloadMetadata(args) {
-  // TODO move API url to more appropriate place
-  const api_url_prefix = "http://openlibrary.org/api/books?jscmd=details&format=json&bibkeys=ISBN:";
-
   console.log("Downloading metadata...");
-  var page = args.object;
-  var book = page.bindingContext;
-  page.bindingContext.isLoading = true;
+  var page = args.object.page;
+  var book = args.object.bindingContext;
 
-  httpModule.getJSON(api_url_prefix + book.isbn).then(function(response) {
-    console.log('Reading data...');
-    var bookData = response['ISBN:' + book.isbn].details;
-    if (bookData) {
-      book.title = bookData.title ? bookData.title : book.title;
-      book.publisher = bookData.publishers ? bookData.publishers[0] : book.publisher;
-      book.genre = bookData.subjects ? bookData.subjects[0] : book.genre;
-      if (bookData.authors) {
-        book.authors.length = 0;
-        for (a in bookData.authors) {
-          book.authors.push(new observableModule.fromObject({
-            name: bookData.authors[a].name,
-          }));
+    page.showModal(metadataDownloadModal, { isbn: book.isbn }, (bookData, error) => {
+        console.log("Got bookData: " + bookData);
+
+        if (bookData && !error) {
+          book.title = bookData.title ? bookData.title : book.title;
+          book.publisher = bookData.publishers ? bookData.publishers[0] : book.publisher;
+          book.genre = bookData.subjects ? bookData.subjects[0] : book.genre;
+          if (bookData.authors) {
+            book.authors.length = 0;
+            for (a in bookData.authors) {
+              book.authors.push(new observableModule.fromObject({
+                name: bookData.authors[a].name,
+              }));
+            };
+          };
+          book.description = bookData.description ? bookData.description.value : book.description;
+          book.binding_type = bookData.physical_format ? bookData.physical_format: book.binding_type;
+        } else {
+          console.log("Error: " + error);
         };
-      };
-      book.description = bookData.description ? bookData.description.value : book.description;
-      book.binding_type = bookData.physical_format ? bookData.physical_format: book.binding_type;
-    } else {
-      console.log("Error: No records found");
-    };
-  }).catch(function(error) {
-    console.log("Error fetching data: " + error);
-  });
-  page.bindingContext.isLoading = false;
-  dialogModule.alert({
-    title: 'Metadata download finished',
-    message: 'The information (if any) has been entered. You can go check it.',
-    okButtonText: 'OK',
-  });
+    }, true)
 }
 
 exports.onNavigatingTo = onNavigatingTo;

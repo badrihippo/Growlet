@@ -1,0 +1,19 @@
+<Page
+  class="page"
+  shownModally="onShownModally"
+  xmlns="http://www.nativescript.org/tns.xsd">
+  <!--TODO: Make this page look prettier-->
+  <ScrollView>
+    <StackLayout>
+      <ActivityIndicator id="activityIndicator"/>
+
+      <Label id="label1" text="Working..." />
+      <StackLayout>
+        <Label text="{{ title }}"/>
+        <Label text="{{ publisher }}"/>
+      </StackLayout>
+      
+      <Button id="okButton" text="Continue to book" tap="okButtonTap" class="btn btn-primary" />
+    </StackLayout>
+  </ScrollView>
+</Page>
