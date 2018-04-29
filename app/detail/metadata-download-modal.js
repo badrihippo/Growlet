@@ -1,6 +1,7 @@
 const httpModule = require("http");
 const observableModule = require("data/observable");
 const observableArrayModule = require("data/observable-array");
+const labelModule = require("ui/label");
 
 var book;
 var context;
@@ -17,8 +18,11 @@ function onShownModally(args) {
   };
 
   var activityIndicator = page.getViewById('activityIndicator');
-  var label1 = page.getViewById('label1');
-  var okButton = page.getViewById('okButton');
+  var titleLabel = page.getViewById('title-label');
+  var descriptionLabel = page.getViewById('description-label');
+  var okButton = page.getViewById('ok-button');
+  var cancelButton = page.getViewById('cancel-button');
+  var metadataList = page.getViewById('metadata-list');
 
   activityIndicator.busy = true;
   okButton.visibility = 'collapse';
@@ -52,10 +56,26 @@ function onShownModally(args) {
       book.success = false;
       book.error = 'No matching records found';
     };
+
+    // display downloaded information
     console.log("Got book data for " + book.title + ".");
-    label1.text = "Data fetched. Press OK to save.";
+    titleLabel.text = "Metadata for " + book.title;
+    descriptionLabel.text = "Information has been found for your chosen book. Please review the information to insert it into your book details";
+
+    // list downloaded data
+    ["title", "publisher", "genre", "description", "binding_type"].forEach(function(p) {
+      if (book[p]) {
+        console.log(p + ": " + book[p]);
+        var l = new labelModule.Label();
+        l.text = p + ": " + book[p];
+        metadataList.addChild(l);
+      };
+    });
+
   }).catch(function(error) {
     console.log("Error fetching data: " + error);
+    titleLabel.text = "No data found";
+    descriptionLabel.text = "No data was found for your selected book [Error: " + error + "]. You will have to enter the details manually."
   });
   // hide spinner; show "success" or "fail" message
   activityIndicator.busy = false;
@@ -66,5 +86,10 @@ function okButtonTap(args) {
   closeCallback(book, book.error);
 }
 
+function cancelButtonTap(args) {
+  closeCallback({}, 'Operation cancelled');
+}
+
 exports.onShownModally = onShownModally;
 exports.okButtonTap = okButtonTap;
+exports.cancelButtonTap = cancelButtonTap;

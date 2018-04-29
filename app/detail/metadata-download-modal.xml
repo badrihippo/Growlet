@@ -3,17 +3,18 @@
   shownModally="onShownModally"
   xmlns="http://www.nativescript.org/tns.xsd">
   <!--TODO: Make this page look prettier-->
-  <ScrollView>
-    <StackLayout>
-      <ActivityIndicator id="activityIndicator"/>
-
-      <Label id="label1" text="Working..." />
-      <StackLayout>
-        <Label text="{{ title }}"/>
-        <Label text="{{ publisher }}"/>
+  <StackLayout>
+    <ScrollView>
+      <StackLayout class="m-x-10">
+        <ActivityIndicator id="activityIndicator" busy="true"/>
+        <Label id="title-label" text="Working..." textWrap="true" class="h2"/>
+        <Label id="description-label" class="text-body" textWrap="true" text="Downloading metadata, please wait..."/>
+        <StackLayout id="metadata-list" class="m-10"></StackLayout>
       </StackLayout>
-      
-      <Button id="okButton" text="Continue to book" tap="okButtonTap" class="btn btn-primary" />
-    </StackLayout>
-  </ScrollView>
+    </ScrollView>
+    <GridLayout rows="auto" columns="*,*">
+      <Button id="cancel-button" row="0" col="0" text="Cancel" tap="cancelButtonTap" class="btn btn-outline" />
+      <Button id="ok-button" row="0" col="1" text="Save changes" tap="okButtonTap" class="btn btn-primary" />
+    </GridLayout>
+  </StackLayout>
 </Page>

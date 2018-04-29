@@ -118,8 +118,8 @@ function downloadMetadata(args) {
 
         if (bookData && !error) {
           book.title = bookData.title ? bookData.title : book.title;
-          book.publisher = bookData.publishers ? bookData.publishers[0] : book.publisher;
-          book.genre = bookData.subjects ? bookData.subjects[0] : book.genre;
+          book.publisher = bookData.publisher ? bookData.publisher : book.publisher;
+          book.genre = bookData.genre ? bookData.genre : book.genre;
           if (bookData.authors) {
             book.authors.length = 0;
             for (a in bookData.authors) {
@@ -133,7 +133,7 @@ function downloadMetadata(args) {
         } else {
           console.log("Error: " + error);
         };
-    }, true)
+    }, false)
 }
 
 exports.onNavigatingTo = onNavigatingTo;
