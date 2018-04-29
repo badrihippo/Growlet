@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<color name="ns_accent">#3d5afe</color>
+	<!--Workaround to change FAB colour-->
+	<!--Thanks to marcelomiranda90 at https://github.com/bradmartin/nativescript-floatingactionbutton/issues/57-->
+	<!--Original color was: #3d5afe-->
+	<color name="ns_accent">#009688</color>
 </resources>
