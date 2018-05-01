@@ -36,6 +36,32 @@ function BookViewModel(documentId) {
       }
     };
 
+    // convert date_added to Date object
+    document.date_added = new Date(document.date_added);
+
+    document.prettyDate = {
+      toView(value) {
+        console.log('Calculating date string...');
+
+        const monthNames = [
+          'Jan', 'Feb', 'Mar',
+          'Apr', 'May', 'Jun',
+          'Jul', 'Aug', 'Sep',
+          'Oct', 'Nov', 'Dec'
+        ];
+
+        const day = value.getDate();
+        const month = monthNames[value.getMonth()];
+        const year = value.getFullYear();
+
+        var result = '' + day + ' ' + month + ' ' + year;
+
+        return result;
+      },
+      toModel(value) {
+      }
+    };
+
     const viewModel = observableModule.fromObject(document);
 
     return viewModel;

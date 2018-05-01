@@ -17,9 +17,8 @@ couchbaseService.prototype.newBook = function(data) {
     isbn: data.isbn ? data.isbn : '',
     binding_type: data.binding_type ? data.binding_type : '',
     price: data.price ? data.price : 0,
-    date_added: data.date_added,
+    date_added: data.date_added ? data.date_added : new Date().toJSON(),
   };
-  // TODO: actually set date added
   // set book.authors
   book.authors = []
   if (data.authors) {

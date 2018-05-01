@@ -44,7 +44,7 @@
     </StackLayout>
     <StackLayout orientation="horizontal">
       <Label text="Added on" class="font-weight-bold m-r-10"/>
-      <Label text="{{ date_added }}"/>
+      <Label text="{{ date_added, prettyDate(date_added) }}"/>
     </StackLayout>
 
   </StackLayout>
