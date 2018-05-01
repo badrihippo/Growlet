@@ -8,7 +8,7 @@
 android {  
   defaultConfig {  
     generatedDensities = []
-    applicationId = "org.nativescript.Growlet" 
+    applicationId = "io.github.badrihippo.growlet"
     
     //override supported platforms
     // ndk {
