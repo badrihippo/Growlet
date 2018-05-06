@@ -13,6 +13,8 @@ const BookViewModel = require("./book-view-model");
 const barcodeScannerModule = require("nativescript-barcodescanner");
 const BarcodeScanner = new barcodeScannerModule.BarcodeScanner();
 
+const appSettings = require("application-settings");
+
 /* ***********************************************************
 * Use the "onNavigatingTo" handler to initialize the page binding context.
 *************************************************************/
@@ -39,6 +41,15 @@ function onNavigatingTo(args) {
     // Right now, only uses 'tap' event in book-edit-page.xml
 
     page.bindingContext.isLoading = false;
+
+    // Scan barcode for new book?
+    if (page.navigationContext.newBook) {
+      console.log('This is a new book.');
+      if (appSettings.getBoolean('scanOnNewBook', false)) {
+        console.log('Autostarting barcode scanner');
+        scanBarcode(page, true);
+      };
+    };
 }
 
 function onCancelTap(args) {
@@ -88,9 +99,14 @@ function onAuthorChange(args) {
   };
 }
 
-function scanBarcode(args) {
+function scanBarcode(args, is_page=false) {
   console.log('Scanning barcode...');
-  var page = args.object;
+  var page;
+  if (is_page) {
+    page = args;
+  } else {
+    page = args.object;
+  }
   var book = page.bindingContext;
   BarcodeScanner.scan({
     formats: "EAN_8, EAN_13",
@@ -100,7 +116,9 @@ function scanBarcode(args) {
     function(result) {
       console.log("We got a " + result.format + ": " + result.text);
       book.isbn = result.text;
-      downloadMetadata(args);
+      if (appSettings.getBoolean("downloadAfterBarScan", true)) {
+        downloadMetadata(args);
+      };
     },
     function(error) {
       console.log("Scan failed: " + error);

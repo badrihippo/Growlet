@@ -56,8 +56,15 @@
     Always wrap content in a layout component.
     -->
     <nsDrawer:RadSideDrawer.mainContent>
-      <StackLayout class="page-content">
-        <Label class="page-icon fa" text="&#xf013;"></Label>
+      <StackLayout class="page-content m-15">
+        <Label text="Behaviour"  class="text-muted font-weight-bold m-t-15"/>
+        <GridLayout rows="auto auto" cols="** *">
+          <Label class="h3 m-y-10" text="Scan barcode when creating new book" textWrap="true" row="0" col="0" />
+          <Switch id="scanOnNewBookSwitch" checked="{{ scanOnNewBook }}" isEnabled="true" row="0" col="1" tap="onSwitchChange"/>
+          <Label class="h3 m-y-10" text="Download metadata after scanning barcode" textWrap="true" row="1" col="0" />
+          <Switch id="downloadAfterBarScanSwitch" checked="{{ downloadAfterBarScan }}" isEnabled="true" row="1" col="1" tap="onSwitchChange"/>
+        </GridLayout>
+        <Label text="Debug options" class="text-muted font-weight-bold m-t-15"/>
         <Button text="Add default book record" tap="onAddBookRecordTap" />
       </StackLayout>
     </nsDrawer:RadSideDrawer.mainContent>

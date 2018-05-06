@@ -1,5 +1,6 @@
 const frameModule = require("ui/frame");
 const couchbaseService = require("../shared/db/database.js");
+const appSettings = require("application-settings");
 
 const SettingsViewModel = require("./settings-view-model");
 
@@ -18,6 +19,10 @@ function onNavigatingTo(args) {
 
     const page = args.object;
     page.bindingContext = new SettingsViewModel();
+    page.bindingContext.set('downloadAfterBarScan',
+        appSettings.getBoolean('downloadAfterBarScan', true));
+    page.bindingContext.set('scanOnNewBook',
+        appSettings.getBoolean('scanOnNewBook', true));
 }
 
 /* ***********************************************************
@@ -45,6 +50,19 @@ function onAddBookRecordTap(args) {
     couchbaseService.saveBook(book);
 }
 
+function onSwitchChange(args) {
+    console.log('onSwitchChange...');
+    if (args.object.id == "scanOnNewBookSwitch") {
+        console.log('Setting scanOnNewBook to ' + !args.object.checked);
+        appSettings.setBoolean('scanOnNewBook', !args.object.checked);
+    }
+    if (args.object.id == "downloadAfterBarScanSwitch") {
+        console.log('Setting downloadAfterBarScan to ' + !args.object.checked);
+        appSettings.setBoolean('downloadAfterBarScan', !args.object.checked);
+    };
+}
+
 exports.onNavigatingTo = onNavigatingTo;
 exports.onDrawerButtonTap = onDrawerButtonTap;
 exports.onAddBookRecordTap = onAddBookRecordTap;
+exports.onSwitchChange = onSwitchChange;
