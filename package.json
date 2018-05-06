@@ -1,6 +1,6 @@
 {
   "description": "Growlet",
-  "license": "GPLv3",
+  "license": "GPL-3.0",
   "readme": "app to track and manage your book colletion",
   "repository": "https://github.com/badrihippo/Growlet",
   "nativescript": {
