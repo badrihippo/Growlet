@@ -1,6 +1,9 @@
 const frameModule = require("ui/frame");
+const dialogModule = require("ui/dialogs");
+const fileSystemModule = require("tns-core-modules/file-system");
 const couchbaseService = require("../shared/db/database.js");
 const appSettings = require("application-settings");
+const isAndroid = require("tns-core-modules/platform").isAndroid;
 
 const SettingsViewModel = require("./settings-view-model");
 
@@ -62,7 +65,61 @@ function onSwitchChange(args) {
     };
 }
 
+function onExportDataTap(args) {
+    var now = new Date().toISOString();
+    const filename = `growlet-export-${now}.json`;
+    dialogModule.confirm({
+        title: 'Export Data',
+        message: "The books database will be exported as " + filename + "." +
+            " Note that this will not include your settings and" +
+            " preferences. Please confirm that you wish to continue." +
+            " Also, this feature won't actually work since it's not yet implemented.",
+        okButtonText: 'Export',
+        cancelButtonText: 'Cancel',
+    }).then(function(result) {
+        // TODO: see if there's a safer way to do this
+        if (result) {
+            var bookList = couchbaseService.getBookList();
+            var data = JSON.stringify({
+                books: bookList,
+            });
+            // Write data to file
+            console.log('Getting folder...');
+            var downloadsFolderPath = '/sdcard/Download';
+            if (isAndroid) {
+                console.log("We're Android.");
+                downloadsFolderPath = android.os.Environment.getExternalStoragePublicDirectory(
+                    android.os.Environment.DIRECTORY_DOWNLOADS
+                ).toString();
+            } else {
+                console.log('Warning: using default value for downloads directory!');
+            }
+            console.log('Loading ' + downloadsFolderPath);
+            const folder = fileSystemModule.Folder.fromPath(downloadsFolderPath);
+            console.log('Getting file...')
+            const file = folder.getFile(filename);
+            console.log(data);
+            file.writeText(data).then(function(result) {
+                console.log('Data exported to ' + file.path);
+                dialogModule.alert({
+                    title: 'Export complete',
+                    message: 'Book data has been exported to ' + file.path,
+                    okButtonText: 'OK',
+                });
+            }).catch(function(err) {
+                console.log('Error writing file:' + err.stack);
+                dialogModule.alert({
+                    title: 'Error saving data',
+                    message: 'Data export failed: ' + err,
+                    okButtonText: 'OK',
+                });
+            });
+        };
+    });
+}
+
 exports.onNavigatingTo = onNavigatingTo;
 exports.onDrawerButtonTap = onDrawerButtonTap;
 exports.onAddBookRecordTap = onAddBookRecordTap;
 exports.onSwitchChange = onSwitchChange;
+exports.onExportDataTap = onExportDataTap;

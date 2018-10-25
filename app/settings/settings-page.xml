@@ -66,6 +66,7 @@
         </GridLayout>
         <Label text="Debug options" class="text-muted font-weight-bold m-t-15"/>
         <Button text="Add default book record" tap="onAddBookRecordTap" />
+        <Button text="Export book data" tap="onExportDataTap" />
       </StackLayout>
     </nsDrawer:RadSideDrawer.mainContent>
   </nsDrawer:RadSideDrawer>
