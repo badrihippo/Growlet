@@ -4,6 +4,7 @@ const fileSystemModule = require("tns-core-modules/file-system");
 const couchbaseService = require("../shared/db/database.js");
 const appSettings = require("application-settings");
 const isAndroid = require("tns-core-modules/platform").isAndroid;
+const mPicker = require("nativescript-mediafilepicker");
 
 const SettingsViewModel = require("./settings-view-model");
 
@@ -117,8 +118,57 @@ function onExportDataTap(args) {
     });
 }
 
+function onImportDataTap(args) {
+    // The file-picker only works on Android
+    console.log('Creating FilePicker...');
+    const fp = new mPicker.Mediafilepicker();
+
+    fp.on('getFiles', function(res) {
+        const results = res.object.results;
+        console.log('We got: ' + results[0].file);
+        dialogModule.alert({
+            title: 'Hypothetical import',
+            message: 'Thanks for trying to import from ' +
+                results[0].file + '. Unfortunately, this feature is ' +
+                'not implemented yet. We\'re working on it.',
+            okButtonText: 'Um, okay',
+        });
+    });
+
+    fp.on('error', function(res) {
+        const msg = res.object.msg;
+        console.log('Error: ' + msg);
+        dialogModule.alert({
+            title: 'Import error',
+            message: 'There was an error in selecting files to import from: ' +
+                msg,
+            okButtonText: 'OK',
+        });
+    });
+
+    fp.on('cancel', function(res) {
+        const msg = res.object.msg;
+        console.log('Cancelled: ' + msg);
+    });
+
+    fp.openFilePicker({
+        android: {
+            extensions: ['json'],
+            maxNumberFiles: 1,
+        },
+        ios: {
+            extensions: ['kUTTypeText'],
+            multipleSelection: false,
+        },
+    });
+    console.log('Opening FilePicker...');
+    //fp.show();
+    console.log('Everything\'s closed');
+}
+
 exports.onNavigatingTo = onNavigatingTo;
 exports.onDrawerButtonTap = onDrawerButtonTap;
 exports.onAddBookRecordTap = onAddBookRecordTap;
 exports.onSwitchChange = onSwitchChange;
 exports.onExportDataTap = onExportDataTap;
+exports.onImportDataTap = onImportDataTap;
