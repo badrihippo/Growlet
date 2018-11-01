@@ -72,8 +72,7 @@ function onExportDataTap(args) {
         title: 'Export Data',
         message: "The books database will be exported as " + filename + "." +
             " Note that this will not include your settings and" +
-            " preferences. Please confirm that you wish to continue." +
-            " Also, this feature won't actually work since it's not yet implemented.",
+            " preferences. Please confirm that you wish to continue.",
         okButtonText: 'Export',
         cancelButtonText: 'Cancel',
     }).then(function(result) {
