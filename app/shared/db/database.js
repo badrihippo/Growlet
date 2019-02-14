@@ -36,8 +36,14 @@ couchbaseService.prototype.newBook = function(data) {
 couchbaseService.prototype.saveBook = function(bookRecord) {
   document = this.newBook(bookRecord);
   if (bookRecord._id) {
-    this.db.updateDocument(bookRecord._id, document);
-    var documentId = bookRecord._id;
+    try {
+      this.db.updateDocument(bookRecord._id, document);
+      var documentId = bookRecord._id;
+    } catch (err) {
+      console.warn('Record "' + bookRecord._id + '" (' +
+        bookRecord.title + ') does not exist. Creating new document...');
+      var documentId = this.db.createDocument(document, bookRecord._id);
+    }
   } else {
     var documentId = this.db.createDocument(document);
   }
