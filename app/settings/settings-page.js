@@ -126,13 +126,59 @@ function onImportDataTap(args) {
     fp.on('getFiles', function(res) {
         const results = res.object.results;
         console.log('We got: ' + results[0].file);
-        dialogModule.alert({
-            title: 'Hypothetical import',
-            message: 'Thanks for trying to import from ' +
-                results[0].file + '. Unfortunately, this feature is ' +
-                'not implemented yet. We\'re working on it.',
-            okButtonText: 'Um, okay',
-        });
+        console.dir(results[0]);
+        inputFile = fileSystemModule.File.fromPath(results[0].file);
+        inputFile.readText()
+            .then((content) => {
+                jsonData = JSON.parse(content);
+                console.log(jsonData);
+                // try to read through and import the data
+                if (jsonData.books) {
+                    dialogModule.confirm({
+                        title: 'Confirm data import',
+                        message: 'You have chosen to import data from' +
+                            results[0].file + '. Please note that ' +
+                            'this could potentially OVERWRITE existing' +
+                            'data. More specifically, if it has old ' +
+                            'records of some of your books, the new ' +
+                            'data will be REPLACED with the old data.' +
+                            ' Please confirm that you wish to continue.',
+                        okButtonText: "Let's go",
+                        cancelButtonText: "Cancel",
+                    }).then((result) => {
+                        for (var i=0; i<jsonData.books.length;i++) { // gives integers for some reason
+                            var bookData = jsonData.books[i];
+                            console.log('Adding: ' + bookData.title);
+                            // TODO: move import procedure to more appropriate place?
+                            couchbaseService.saveBook({
+                                _id: bookData._id,
+                                title: bookData.title,
+                                genre: bookData.genre,
+                                description: bookData.description,
+                                publisher: bookData.publisher,
+                                isbn: bookData.isbn,
+                                binding_type: bookData.binding_type,
+                                price: bookData.price,
+                                date_added: bookData.date_added,
+                                authors: bookData.authors,
+                            });
+                        }
+                        dialogModule.alert({
+                            title: 'Books imported',
+                            message: 'Your book records have been imported from ' +
+                                results[0].file + '. We hope it went off well!',
+                            okButtonText: 'Okay, cool',
+                        });
+                    });
+                } else {
+                    dialogModule.alert({
+                        title: 'No books',
+                        message: 'Looks like ' + results[0].file +
+                            ' has no book data that can be imported!',
+                        okButtonText: 'Give up :(',
+                    });
+                }
+            });
     });
 
     fp.on('error', function(res) {
